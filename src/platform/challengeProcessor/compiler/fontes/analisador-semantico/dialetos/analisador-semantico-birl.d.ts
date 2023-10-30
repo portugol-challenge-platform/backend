@@ -1,0 +1,67 @@
+import { Atribuir, FimPara, FormatacaoEscrita, Literal, Super, TipoDe } from '../../construtos';
+import { Bloco, Classe, Const, ConstMultiplo, Continua, Declaracao, Enquanto, Escolha, Escreva, EscrevaMesmaLinha, Expressao, Fazer, FuncaoDeclaracao, Importar, Leia, LeiaMultiplo, Para, ParaCada, Retorna, Se, Sustar, Tente, Var, VarMultiplo } from '../../declaracoes';
+import { AnalisadorSemanticoInterface } from '../../interfaces/analisador-semantico-interface';
+import { ErroAnalisadorSemantico } from '../../interfaces/erros';
+import { RetornoAnalisadorSemantico } from '../../interfaces/retornos/retorno-analisador-semantico';
+import { ContinuarQuebra, RetornoQuebra, SustarQuebra } from '../../quebras';
+import { PilhaVariaveis } from '../pilha-variaveis';
+interface VariavelHipoteticaInterface {
+    tipo: 'texto' | 'número' | 'longo' | 'vetor' | 'dicionário' | 'nulo' | 'lógico' | 'função' | 'símbolo' | 'objeto' | 'módulo';
+    subtipo?: 'texto' | 'número' | 'longo' | 'lógico';
+    imutavel: boolean;
+}
+export declare class AnalisadorSemanticoBirl implements AnalisadorSemanticoInterface {
+    pilhaVariaveis: PilhaVariaveis;
+    variaveis: {
+        [nomeVariavel: string]: VariavelHipoteticaInterface;
+    };
+    atual: number;
+    erros: ErroAnalisadorSemantico[];
+    constructor();
+    visitarExpressaoTipoDe(expressao: TipoDe): Promise<any>;
+    visitarDeclaracaoClasse(declaracao: Classe): Promise<void>;
+    visitarDeclaracaoConst(declaracao: Const): Promise<any>;
+    visitarDeclaracaoConstMultiplo(declaracao: ConstMultiplo): Promise<any>;
+    visitarDeclaracaoDeAtribuicao(expressao: Atribuir): Promise<void>;
+    visitarDeclaracaoDeExpressao(declaracao: Expressao): Promise<any>;
+    visitarDeclaracaoDefinicaoFuncao(declaracao: FuncaoDeclaracao): Promise<void>;
+    visitarDeclaracaoEnquanto(declaracao: Enquanto): Promise<void>;
+    visitarDeclaracaoEscolha(declaracao: Escolha): Promise<void>;
+    visitarDeclaracaoEscreva(declaracao: Escreva): Promise<void>;
+    visitarDeclaracaoFazer(declaracao: Fazer): Promise<void>;
+    visitarDeclaracaoImportar(declaracao: Importar): Promise<void>;
+    visitarDeclaracaoPara(declaracao: Para): Promise<any>;
+    visitarDeclaracaoParaCada(declaracao: ParaCada): Promise<any>;
+    visitarDeclaracaoSe(declaracao: Se): Promise<void>;
+    visitarDeclaracaoTente(declaracao: Tente): Promise<void>;
+    visitarDeclaracaoVar(declaracao: Var): Promise<any>;
+    visitarDeclaracaoVarMultiplo(declaracao: VarMultiplo): Promise<any>;
+    visitarExpressaoAcessoIndiceVariavel(expressao: any): Promise<void>;
+    visitarExpressaoAcessoMetodo(expressao: any): Promise<void>;
+    visitarExpressaoAgrupamento(expressao: any): Promise<any>;
+    visitarExpressaoAtribuicaoPorIndice(expressao: any): Promise<any>;
+    visitarExpressaoBinaria(expressao: any): Promise<void>;
+    visitarExpressaoBloco(declaracao: Bloco): Promise<any>;
+    visitarExpressaoContinua(declaracao?: Continua): ContinuarQuebra;
+    visitarExpressaoDeChamada(expressao: any): Promise<void>;
+    visitarExpressaoDefinirValor(expressao: any): Promise<void>;
+    visitarExpressaoDeleguaFuncao(expressao: any): Promise<void>;
+    visitarExpressaoDeVariavel(expressao: any): Promise<void>;
+    visitarExpressaoDicionario(expressao: any): Promise<void>;
+    visitarExpressaoEscrevaMesmaLinha(declaracao: EscrevaMesmaLinha): Promise<void>;
+    visitarExpressaoFalhar(expressao: any): Promise<any>;
+    visitarExpressaoFimPara(declaracao: FimPara): Promise<void>;
+    visitarExpressaoFormatacaoEscrita(declaracao: FormatacaoEscrita): Promise<void>;
+    visitarExpressaoIsto(expressao: any): Promise<void>;
+    visitarExpressaoLeia(expressao: Leia): Promise<void>;
+    visitarExpressaoLeiaMultiplo(expressao: LeiaMultiplo): Promise<any>;
+    visitarExpressaoLiteral(expressao: Literal): Promise<any>;
+    visitarExpressaoLogica(expressao: any): Promise<void>;
+    visitarExpressaoRetornar(declaracao: Retorna): Promise<RetornoQuebra>;
+    visitarExpressaoSuper(expressao: Super): Promise<void>;
+    visitarExpressaoSustar(declaracao?: Sustar): SustarQuebra;
+    visitarExpressaoUnaria(expressao: any): Promise<void>;
+    visitarExpressaoVetor(expressao: any): Promise<void>;
+    analisar(declaracoes: Declaracao[]): RetornoAnalisadorSemantico;
+}
+export {};

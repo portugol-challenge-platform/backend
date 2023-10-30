@@ -1,0 +1,73 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         String           @id @default(uuid())
+  name       String
+  username   String           @unique
+  password   String
+  createdAt  DateTime         @default(now())
+  challenges UserChallenges[]
+}
+
+model Challenge {
+  id                Int    @id @default(autoincrement())
+  title             String
+  description       String
+  inputDescription  String
+  outputDescription String
+
+  testerData     ChallengeTester[]
+  userChallenges UserChallenges[]
+}
+
+model UserChallenges {
+  status       UserChallengeStatus
+  userId       String
+  challengeId  Int
+  correct      Boolean
+  linesCorrect Int
+
+  user      User      @relation(fields: [userId], references: [id])
+  challenge Challenge @relation(fields: [challengeId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+
+  @@unique([userId, challengeId])
+}
+
+model ChallengeTester {
+  id          Int                   @id @default(autoincrement())
+  challengeId Int
+  data        ChallengeTesterData[]
+  public      Boolean               @default(false)
+
+  Challenge Challenge @relation(fields: [challengeId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+}
+
+model ChallengeTesterData {
+  type              ChallengeTesterDataType
+  value             String
+  sequence          Int
+  challengeTesterId Int
+
+  Tester ChallengeTester @relation(fields: [challengeTesterId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+
+  @@unique([challengeTesterId, sequence])
+}
+
+enum UserChallengeStatus {
+  SUCCESS
+  ERROR
+  PROCESSING
+  QUEUED
+}
+
+enum ChallengeTesterDataType {
+  INPUT
+  OUTPUT
+}

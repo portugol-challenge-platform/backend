@@ -1,0 +1,22 @@
+export declare const palavrasReservadas: {
+    cadeia: string;
+    caracter: string;
+    const: string;
+    enquanto: string;
+    escreva: string;
+    e: string;
+    faca: string;
+    falso: string;
+    funcao: string;
+    inteiro: string;
+    leia: string;
+    logico: string;
+    ou: string;
+    para: string;
+    programa: string;
+    real: string;
+    se: string;
+    senao: string;
+    vazio: string;
+    verdadeiro: string;
+};

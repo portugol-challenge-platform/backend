@@ -1,0 +1,39 @@
+<html>
+
+<head>
+    <script src="https://cdn.socket.io/4.3.2/socket.io.min.js"
+        integrity="sha384-KAZ4DtjNhLChOB/hxXuKqhMLYvx3b5MlT55xPEiNmREKRzeEm+RVPlTnAn0ajQNs"
+        crossorigin="anonymous"></script>
+    <script>
+        const socket = io(
+            'http://localhost:3000',
+            {
+                transportOptions: {
+                    polling: {
+                        extraHeaders: {
+                            Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6ZmFsc2UsInN1YiI6IjhhOTY3NzAyLWNhMzktNDRlYy1hMDE2LTJlNmY0ODY3MGRhNiIsInVzZXJuYW1lIjoicHJvYmluZ3BvcnRyYWl0aXN0IiwiaWF0IjoxNjk4NTM3OTUzLCJleHAiOjE2OTkxNDI3NTN9.F-Tz_g59JYQ_hRmokI9EMOqV05G78Y1bi7KxkaWXfB4',
+                        }
+                    }
+                }
+            }
+        );
+        socket.on('connect', function () {
+            console.log('Connected');
+
+            socket.emit('subscribe', true);
+        });
+        socket.on('processor', function (...data) {
+            console.log('event', ...data);
+        });
+        socket.on('exception', function (data) {
+            console.log('event', data);
+        });
+        socket.on('disconnect', function () {
+            console.log('Disconnected');
+        });
+    </script>
+</head>
+
+<body></body>
+
+</html>

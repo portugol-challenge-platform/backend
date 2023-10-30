@@ -1,0 +1,1 @@
+export declare function inferirTipoVariavel(variavel: string | number | Array<any> | boolean | null | undefined): "módulo" | "nulo" | "vetor" | "Texto" | "Número" | "Longo" | "Lógico" | "Nulo" | "Dicionário" | "Função" | "Símbolo";

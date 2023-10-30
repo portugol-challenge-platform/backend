@@ -1,0 +1,68 @@
+GET http://localhost:3000/challenge/paginator?page=1 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6ZmFsc2UsInN1YiI6IjhhOTY3NzAyLWNhMzktNDRlYy1hMDE2LTJlNmY0ODY3MGRhNiIsInVzZXJuYW1lIjoicHJvYmluZ3BvcnRyYWl0aXN0IiwiaWF0IjoxNjk4NTM5OTQ5LCJleHAiOjE2OTkxNDQ3NDl9.vcjr9Ts91FYz1kP3SC7J9p_5a4kqiKmwZAgIZDGtoGA
+
+###
+POST http://localhost:3000/challenge HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer ADMINAUTHHTOKEN
+
+{
+    "title":"Somar ou subtrair",
+    "description":"Faça um programa que recebe 3 numeros: X, Y e Z.\nCaso Z seja 1 faça a soma de X e Y, Caso seja 2 faça a subtração, Caso Z seja outro valor imprima 0, depois imprima no console o resultado.",
+    "inputDescription":"Irá receber 3 números. no fomato:\nX\nY\nZ",
+    "outputDescription":"Só o valor da operação(X+Y ou X-Y).",
+    "tester":[
+        {
+            "data":[
+                {"value":"20", "type":"INPUT","sequence":1 },
+                {"value":"20", "type":"INPUT","sequence":2 },
+                {"value":"1", "type":"INPUT","sequence":3 },
+                {"value":"40", "type":"OUTPUT", "sequence":4}
+            ],
+            "public":true
+        },
+        {
+            "data":[
+                {"value":"20", "type":"INPUT","sequence":1 },
+                {"value":"20", "type":"INPUT","sequence":2 },
+                {"value":"2", "type":"INPUT","sequence":3 },
+                {"value":"0", "type":"OUTPUT", "sequence":4}
+            ],
+            "public":true
+        },
+        {
+            "data":[
+                {"value":"50", "type":"INPUT","sequence":1 },
+                {"value":"50", "type":"INPUT","sequence":2 },
+                {"value":"6", "type":"INPUT","sequence":3 },
+                {"value":"0", "type":"OUTPUT", "sequence":4}
+            ],
+            "public":true
+        }
+    ]
+}
+
+###
+POST http://localhost:3000/challenge/submit HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6ZmFsc2UsInN1YiI6IjI4N2E0OWJmLWU0ZGUtNDhjNi05ZGNiLWZiZGZlOWViNjg3ZSIsInVzZXJuYW1lIjoibW9ub3Rvbm91c3NjYWIiLCJpYXQiOjE2OTg1OTEzNDYsImV4cCI6MTY5OTE5NjE0Nn0.PeUTu1sptQ9j6gGMGZzIVeBbMmFWeR0KfcYfuUqoSO8
+Content-Type: multipart/form-data; boundary=MfnBoundry
+
+--MfnBoundry
+Content-Disposition: form-data; name="challenge"
+
+3
+--MfnBoundry
+Content-Disposition: form-data; name="file"; filename="test.alg"
+Content-Type: text/plain
+
+< ./../uploads/test.alg
+--MfnBoundry--
+
+###
+DELETE http://localhost:3000/challenge HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer ADMINAUTHHTOKEN
+
+{
+    "id": 1
+}
